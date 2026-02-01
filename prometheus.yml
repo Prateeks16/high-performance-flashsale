@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 5s # Ask for data every 5 seconds
+
+scrape_configs:
+  - job_name: 'flashsale-app'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['flashsale-app:8080'] # Docker container name
