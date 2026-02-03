@@ -9,7 +9,7 @@ Unlike traditional architectures that crash under load, this system uses **Redis
 
 ---
 
-## 🏗️ Architecture: The "God Mode" Pipeline
+## 🏗️ Architecture: The Pipeline
 
 The system prevents database bottlenecks by decoupling the "Buy" action into three distinct phases:
 
@@ -152,3 +152,30 @@ A `jmeter_test_plan.jmx` is included in the repo.
 2. Set **Ramp-up Period**: 1s
 3. Target: `POST /api/purchase/1`
 4. **Result:** Watch the Grafana dashboard spike while the database remains stable.
+
+
+## 📸 Proof of Concept (Results)
+
+Here is the step-by-step verification of the system handling **1,000 Concurrent Users** for a flash sale of **100 items**.
+
+### 1. Initial State (Database)
+*Before the sale starts, we have exactly 100 items in stock.*
+![Initial DB State](assets/1_before_selling_Step1.png)
+
+### 2. Real-Time Traffic Spike (Grafana)
+*Visualizing the traffic surge. The system handles the load while maintaining stability.*
+![Grafana Dashboard](assets/3_Graffana_Dashboard_Step3.jpg)
+
+### 3. Load Test Metrics (JMeter)
+* **0.00% Error Rate** despite high concurrency.
+* **103+ Requests/Sec** throughput on a local machine.
+![JMeter Results](assets/2_J_Meter_Step2.png)
+
+### 4. Overselling Protection (API Response)
+*Once the 100 items are sold in Redis, the API correctly rejects further requests with "Sold Out!", ensuring inventory consistency.*
+![Sold Out Logic](assets/4_After_req_purchase_Step_4.png)
+
+---
+### 🔌 API Endpoints
+*Visualized using Swagger UI*
+![Swagger UI](assets/api_structure.jpg)
