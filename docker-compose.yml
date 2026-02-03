@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # 1. YOUR APP
+  # 1. My APP
   flashsale-app:
     build: .
     container_name: flashsale-app

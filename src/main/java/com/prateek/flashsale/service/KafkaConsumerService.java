@@ -22,7 +22,7 @@ public class KafkaConsumerService {
     @KafkaListener(topics = "flashsale_orders", groupId = "flashsale-group")
     public void consume(String message) {
         // Message format: "productId,userId" (e.g., "2,101")
-        System.out.println("📨 Kafka received: " + message);
+        System.out.println("Kafka received: " + message);
 
         String[] parts = message.split(",");
         Long productId = Long.parseLong(parts[0]);
@@ -32,7 +32,7 @@ public class KafkaConsumerService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        // Save to Database (The slow part happens here, in the background!)
+        // Save to Database
         Order order = new Order();
         order.setProductId(productId);
         order.setUserId(userId);
@@ -40,6 +40,6 @@ public class KafkaConsumerService {
         order.setOrderTime(LocalDateTime.now());
 
         orderRepository.save(order);
-        System.out.println("✅ Order Saved to DB: " + order.getId());
+        System.out.println("Order Saved to DB: " + order.getId());
     }
 }

@@ -12,7 +12,7 @@ public class PurchaseService {
     private StringRedisTemplate redisTemplate;
 
     @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate; // <--- Connect to Kafka
+    private KafkaTemplate<String, String> kafkaTemplate; // Connect to Kafka
 
     public String processPurchase(Long productId, Long userId) {
         String key = "product_stock_" + productId;

@@ -17,7 +17,6 @@ public class Product {
     @Version // Optimistic Locking
     private Long version;
 
-    // --- MANUAL GETTERS AND SETTERS (Guaranteed to work) ---
 
     public Long getId() {
         return id;

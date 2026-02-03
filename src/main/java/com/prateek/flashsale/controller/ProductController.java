@@ -71,7 +71,7 @@ public class ProductController {
         } else {
             // Rejected
             return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                    .body("❌ Too Many Requests! You are rate limited.");
+                    .body("Too Many Requests! You are rate limited.");
         }
     }
 }
