@@ -20,7 +20,7 @@ public class PurchaseService {
         // 1. Redis Check (The Gatekeeper)
         Long stockLeft = redisTemplate.opsForValue().decrement(key);
 
-        if (stockLeft != null && stockLeft >= 0) {
+        if (stockLeft >= 0) {
             // --- REDIS SAYS YES ---
 
             // 2. Send to Kafka (The Fast Lane)
